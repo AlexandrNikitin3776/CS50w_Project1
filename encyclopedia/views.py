@@ -4,6 +4,7 @@ from django.http import HttpResponseNotFound
 from django.http import HttpResponse
 
 from . import util
+from .mdtohtml import convert
 
 
 def index(request):
@@ -14,6 +15,6 @@ def index(request):
 def entry(request, title):
     e = util.get_entry(title)
     if e:
-        return HttpResponse(e)
+        return HttpResponse(convert(e))
     else:
         return HttpResponseNotFound('<h1>Page not found</h1>')
