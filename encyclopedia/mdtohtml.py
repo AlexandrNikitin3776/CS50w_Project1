@@ -1,27 +1,5 @@
 import re
 
-"""
-    this package converts markdown text to html text.
-    Package supports:
-    - headings
-        #
-        ##
-        ###
-        ####
-        #####
-        ######
-    - boldface text
-        **Bold text**
-    - unordered lists
-        - li1
-        - li2
-        - li3
-    - links
-        [GitHub Pages](https://pages.github.com/)
-    - paragraphs
-        \n\n
-"""
-
 
 def convert(mdtext):
     textlist = re.split("\n\n|\r\n\r\n|\r\n", mdtext)
@@ -100,7 +78,3 @@ def convert(mdtext):
         # p
         textlist[i] = "".join(["<p>", textlist[i], "</p>"])
     return "\n".join(textlist)
-
-
-text = "Django is a web **framework** written **using** [Python](/wiki/Python) that allows for the design of web applications that generate [HTML](/wiki/HTML) dynamically."
-print(convert(text))
