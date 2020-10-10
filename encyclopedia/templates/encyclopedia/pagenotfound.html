@@ -1,9 +1,10 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-    Error 404 - Page not found
+    {{ page_title }} not found
 {% endblock %}
 
 {% block body %}
-    <h1>Page not found</h1>
+    <h1>Page {{ page_title }} not found</h1>
+    <p>Wiki does not have an article with this exact name.</p>
 {% endblock %}

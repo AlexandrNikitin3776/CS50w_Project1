@@ -31,7 +31,7 @@ def entry(request, page_title):
             },
         )
     else:
-        return render(request, "encyclopedia/pagenotfound.html")
+        return render(request, "encyclopedia/pagenotfound.html", {"page_title": page_title,},)
 
 
 def randompage(request):
@@ -50,8 +50,10 @@ def searchpage(request):
         for p in pages:
             if searchphraze in p.lower():
                 searchresults.append(p)
-        if searchresults:
-            return render(request, "encyclopedia/search_page.html")
-            # TODO: Add search_page template
-            # TODO: Change there arn't any search results (empty search results in search template)
-    return render(request, "encyclopedia/pagenotfound.html")
+        return render(
+            request, 
+            "encyclopedia/search_page.html",
+            {
+                "entries": searchresults,
+            },
+        )
