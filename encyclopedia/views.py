@@ -8,7 +8,7 @@ from django.urls import reverse
 
 from . import util
 from .mdtohtml import convert
-from .forms import NewPageForm
+from .forms import NewPageForm, EditPageForm
 
 
 def index(request):
@@ -69,7 +69,7 @@ def searchpage(request):
 
 def createnewpage(request):
     if request.method == "POST":
-        form = NewPageForm(request.POST or None)
+        form = NewPageForm(request.POST)
         if form.is_valid():
             page_title = form.cleaned_data["page_title"]
             content = form.cleaned_data["content"]
@@ -78,16 +78,48 @@ def createnewpage(request):
         else:
             return render(
                 request,
-                "encyclopedia/new_page.html",
+                "encyclopedia/edit_page.html",
                 {
+                    "edit_page_title": "New Page",
                     "form": form,
                 },
             )
 
     return render(
         request,
-        "encyclopedia/new_page.html",
+        "encyclopedia/edit_page.html",
         {
+            "edit_page_title": "New Page",
             "form": NewPageForm(),
+        },
+    )
+
+def editpage(request, page_title):
+    if request.method == "POST":
+        form = EditPageForm(request.POST)
+        if form.is_valid():
+            page_title = form.cleaned_data["page_title"]
+            content = form.cleaned_data["content"].replace("\r\n", "\n")
+            util.save_entry(page_title, content)
+            return HttpResponseRedirect(reverse("entry", args=[page_title]))
+        else:
+            return render(
+                request,
+                "encyclopedia/edit_page.html",
+                {
+                    "edit_page_title": page_title,
+                    "form": form,
+                },
+            )
+
+    return render(
+        request,
+        "encyclopedia/edit_page.html",
+        {
+            "edit_page_title": "New Page",
+            "form": EditPageForm(initial={
+                'page_title': page_title,
+                'content': util.get_entry(page_title),
+            }),
         },
     )

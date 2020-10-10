@@ -6,4 +6,7 @@
 
 {% block body %}
     {{ content|safe|escape }}
+    <form action="{% url 'edit_page' page_title=page_title %}">
+        <input type="submit" value="Edit page">
+    </form>
 {% endblock %}

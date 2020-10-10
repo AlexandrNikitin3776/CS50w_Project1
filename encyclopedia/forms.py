@@ -20,3 +20,15 @@ class NewPageForm(forms.Form):
         label="",
         help_text="Enter a Markdown page content",
     )
+
+class EditPageForm(forms.Form):
+    page_title = forms.CharField(
+        max_length=20,
+        label="",
+        help_text="Enter a page title",
+    )
+    content = forms.CharField(
+        widget=forms.Textarea(),
+        label="",
+        help_text="Enter a Markdown page content",
+    )

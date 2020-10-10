@@ -1,12 +1,12 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-    New Page
+    {{ edit_page_title }}
 {% endblock %}
 
 {% block body %}
-    <h1>New Page</h1>
-    <form method="post">
+    <h1>{{ edit_page_title }}</h1>
+    <form method="POST">
         {% csrf_token %}
         {% for err in form.page_title.errors %}
             <p class="alert alert-danger">{{ err }}</p>
