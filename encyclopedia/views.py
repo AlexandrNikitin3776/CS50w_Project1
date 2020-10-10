@@ -31,7 +31,13 @@ def entry(request, page_title):
             },
         )
     else:
-        return render(request, "encyclopedia/pagenotfound.html", {"page_title": page_title,},)
+        return render(
+            request,
+            "encyclopedia/pagenotfound.html",
+            {
+                "page_title": page_title,
+            },
+        )
 
 
 def randompage(request):
@@ -51,7 +57,7 @@ def searchpage(request):
             if searchphraze in p.lower():
                 searchresults.append(p)
         return render(
-            request, 
+            request,
             "encyclopedia/search_page.html",
             {
                 "entries": searchresults,
