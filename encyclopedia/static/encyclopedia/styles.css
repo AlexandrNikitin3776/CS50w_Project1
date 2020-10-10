@@ -1,6 +1,7 @@
 body {
     margin: 0;
     background-color: white;
+    width: 98%;
 }
 
 code {
@@ -13,8 +14,12 @@ h1 {
 }
 
 textarea {
-    height: 90vh;
-    width: 80%;
+    height: 50vh;
+    width: 90%;
+}
+
+.help{
+    font-size: 14px;
 }
 
 .main {

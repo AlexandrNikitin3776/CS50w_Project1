@@ -1,12 +1,14 @@
-# from django.http import response
-# from django.http import request
-from django.shortcuts import render, redirect
+import random
+from django.forms import utils
+from django.http import request
+
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from . import util
 from .mdtohtml import convert
-import random
+from .forms import NewPageForm
 
 
 def index(request):
@@ -63,3 +65,29 @@ def searchpage(request):
                 "entries": searchresults,
             },
         )
+
+
+def createnewpage(request):
+    if request.method == "POST":
+        form = NewPageForm(request.POST or None)
+        if form.is_valid():
+            page_title = form.cleaned_data["page_title"]
+            content = form.cleaned_data["content"]
+            util.save_entry(page_title, content)
+            return HttpResponseRedirect(reverse("entry", args=[page_title]))
+        else:
+            return render(
+                request,
+                "encyclopedia/new_page.html",
+                {
+                    "form": form,
+                },
+            )
+
+    return render(
+        request,
+        "encyclopedia/new_page.html",
+        {
+            "form": NewPageForm(),
+        },
+    )
