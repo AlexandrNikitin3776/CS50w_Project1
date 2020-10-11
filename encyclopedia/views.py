@@ -99,7 +99,7 @@ def editpage(request, page_title):
         form = EditPageForm(request.POST)
         if form.is_valid():
             page_title = form.cleaned_data["page_title"]
-            content = form.cleaned_data["content"].replace("\r", "")
+            content = form.cleaned_data["content"].replace("\r\n", "\n")
             util.save_entry(page_title, content)
             return HttpResponseRedirect(reverse("entry", args=[page_title]))
         else:

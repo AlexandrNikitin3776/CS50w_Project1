@@ -28,7 +28,7 @@ def convert(mdtext):
             )
             mb = pat.search(textlist[i])
         # ul li
-        pat = re.compile(r"^\* (?P<li>.+)$")
+        pat = re.compile(r"^[\*\-\+] (?P<li>.+)$")
         m = re.match(pat, textlist[i])
         if m:
             textlist[i] = "".join(["<li>", m.group("li"), "</li>"])
