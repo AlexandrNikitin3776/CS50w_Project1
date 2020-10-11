@@ -62,6 +62,7 @@ def searchpage(request):
             request,
             "encyclopedia/search_page.html",
             {
+                "search_query": searchphraze,
                 "entries": searchresults,
             },
         )
